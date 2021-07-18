@@ -11,12 +11,14 @@ $(document).ready(function () {
 	// 		filter: '.track-lights'
 	// 	}
 	// });
+	
 	$('.direction-slider').slick({
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		arrows: false,
 		fade: true,
-		asNavFor: '.direction-slider__nav'
+		asNavFor: '.direction-slider__nav',
+		// autoplay: true
 	});
 	$('.direction-slider__nav').slick({
 		slidesToShow: 3,
@@ -52,6 +54,9 @@ $(function(){
 				},
 				load: {
 					filter: '.section-1'
+				},
+				animation: {
+					enable: false
 				},		
 			});	
 			let containerEl2 = $('.direction__wrapper');
@@ -63,15 +68,13 @@ $(function(){
 				load: {
 					filter: '.shops'
 				},
+				animation: {
+					enable: false
+				},
 				callbacks: {
-					
-					onMixClick:function() {
-					
-					},
-					onMixStart: function() {
-					
-					},
 					onMixEnd: function() {
+						$('.direction-slider').slick("refresh");
+						$('.direction-slider__nav').slick("refresh");
 					},
 				}
 				
