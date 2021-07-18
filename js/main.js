@@ -1,4 +1,3 @@
-	
 $(function(){
 $(document).ready(function () {
 			let $preloader = $('.preloader'),
@@ -6,7 +5,113 @@ $(document).ready(function () {
 			$loader.fadeOut();
 			$preloader.delay(250).fadeOut(200);
 	});
+	
+	// var mixer = mixitup('.catalog__gallery-wrapper', {
+	// 	load: {
+	// 		filter: '.track-lights'
+	// 	}
+	// });
+	$('.direction-slider').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '.direction-slider__nav'
+	});
+	$('.direction-slider__nav').slick({
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		arrows: false,
+		focusOnSelect: true,
+		asNavFor: '.direction-slider',
+	});
+	
+	
+	$(document).ready(function(){
+		// let containerEl1 = $('.about__wrapper');
+		
+			// let mixer1 = mixitup(containerEl1, {
+			// 	controls: {
+			// 		scope: 'local',	
+			// 	},
+			// 	load: {
+			// 		filter: '.section-1'
+			// 	},		
+			// });
+			
+	});
 });
+$(function(){
+	if($(window).width()>= 901) {
+		
+		$(document).ready(function(){
+			let containerEl1 = $('.about__wrapper');
+			let mixer1 = mixitup(containerEl1, {
+				controls: {
+					scope: 'local',	
+				},
+				load: {
+					filter: '.section-1'
+				},		
+			});	
+			let containerEl2 = $('.direction__wrapper');
+			let mixer2 = mixitup(containerEl2, {
+				controls: {
+					scope: 'local',
+					
+				},
+				load: {
+					filter: '.shops'
+				},
+				callbacks: {
+					
+					onMixClick:function() {
+					
+					},
+					onMixStart: function() {
+					
+					},
+					onMixEnd: function() {
+					},
+				}
+				
+			});
+		});
+		
+	} else {
+		
+	
+		$(document).ready(function() {
+			// !not remove, just add
+			$('.about__content').removeClass('mix');
+			$('[data-filter=".section-1"]').prependTo('.section-1');
+			$('[data-filter=".section-2"]').prependTo('.section-2');
+			$('[data-filter=".section-3"]').prependTo('.section-3');
+			$('[data-filter=".section-4"]').prependTo('.section-4');
+
+			$('.about__text').hide()
+			$('.about__button').on('click', function(){
+				$('.about__text').hide();
+				$('.about__button').removeClass('active');
+				$(this).siblings('.about__text').show();
+				$(this).addClass('active');				
+			})
+		});
+		$(document).ready(function() {
+			// !not remove, just add
+			$('.direction__gallery').removeClass('mix');
+			$('[data-filter=".shops"]').prependTo('.shops');
+			$('[data-filter=".public"]').prependTo('.public');
+			$('[data-filter=".landscape"]').prependTo('.landscape');
+			$('[data-filter=".cafe"]').prependTo('.cafe');
+			$('[data-filter=".office"]').prependTo('.office');
+			$('[data-filter=".interior"]').prependTo('.interior');
+
+			
+		});
+	}
+});
+
 $(function(){
 	$('.intro-slider').slick({
 		prevArrow: '<button class="intro-slider__btn intro-slider__btn-left"><svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.55868e-08 5.5L5.5 1.78873e-08L7 1.5L3 5.5L7 9.5L5.4 11L6.55868e-08 5.5Z" /></svg></button>',
@@ -23,9 +128,7 @@ $(function(){
 
 			}
 		}]
-
 	});
-	
 	
 	if ($(window).width() >= 551) {
 		$('.catalog__nav-title').on('click', function () {
@@ -34,18 +137,7 @@ $(function(){
 		});
 
 		$('.catalog__nav:nth-child(1)').addClass('catalog__nav--active');
-		let mixer = mixitup('.catalog__gallery-wrapper', {
-		load: {
-		filter: '.track-lights'
-		},
-		animation: {
-		effectsIn: 'fade translateY(0) translateX(0) translate3d(0) translateZ(0)',
-		effectsOut: 'fade translateY(0) translateX(0) translate3d(0) translateZ(0)',
-		effects: 'fade translateY(0) translateX(0) translate3d(0) translateZ(0)',
-		duration: 500
-		}
-		});
-		
+
 		$('.services__item:nth-child(1)').addClass('services__item--active');
 
 		$('.catalog__card-title').on('click', function(){
@@ -58,14 +150,11 @@ $(function(){
 
 	
 	} else{
-		// $('.download__item').find().children('.download__name').attr('href', '#');
 		
-// let mixer = false
 	}
 	
 });
 $(function(){
-	
 		$(".download__item p").replaceWith(function(index, oldHTML){
 			return $("<a class='download__name' href='#'/>").html(oldHTML);
 		});
