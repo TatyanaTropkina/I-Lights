@@ -11,7 +11,11 @@ $(document).ready(function () {
 	// 		filter: '.track-lights'
 	// 	}
 	// });
-	
+	// var mixer = mixitup('.delivery__wrapper', {
+	// 	load: {
+	// 		filter: '.individual'
+	// 	}
+	// });
 	$('.direction-slider').slick({
 		slidesToShow: 1,
 		slidesToScroll: 1,
@@ -76,9 +80,9 @@ $(function(){
 						$('.direction-slider').slick("refresh");
 						$('.direction-slider__nav').slick("refresh");
 					},
-				}
-				
+				}	
 			});
+			
 		});
 		
 	} else {
@@ -114,8 +118,40 @@ $(function(){
 		});
 	}
 });
-
 $(function(){
+	
+	$(document).ready(function() {
+		if($(window).width()<= 801){
+			$('.individual').before($('[data-filter=".individual"]'));
+			$('.entity').before($('[data-filter=".entity"]'));
+
+			$('.budgetary').before($('[data-filter=".budgetary"]'));
+
+			var mixer3 = mixitup('.delivery__content', {
+				load: {
+					filter: 'none'
+				},
+				animation: {
+					enable: false
+				},
+			});
+			
+		} else {
+			var mixer3 = mixitup('.delivery__content', {
+				load: {
+					filter: '.individual'
+				},
+				animation: {
+					enable: false
+				},
+
+			});
+		}
+	});
+	
+});
+$(function(){
+	
 	$('.intro-slider').slick({
 		prevArrow: '<button class="intro-slider__btn intro-slider__btn-left"><svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.55868e-08 5.5L5.5 1.78873e-08L7 1.5L3 5.5L7 9.5L5.4 11L6.55868e-08 5.5Z" /></svg></button>',
 		nextArrow: '<button class="intro-slider__btn intro-slider__btn-right"><svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5.5L1.5 11L1.78873e-08 9.5L4 5.5L1.13286e-07 1.5L1.6 1.90798e-08L7 5.5Z"/></svg></button>',
