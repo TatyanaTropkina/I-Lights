@@ -1,4 +1,7 @@
 $(function(){
+		
+	
+	
 $(document).ready(function () {
 			let $preloader = $('.preloader'),
 			$loader = $preloader.find('.preloader__loader');
@@ -6,11 +9,41 @@ $(document).ready(function () {
 			$preloader.delay(250).fadeOut(200);
 	});
 	
-	// var mixer = mixitup('.catalog__gallery-wrapper', {
+	// var mixer1 = mixitup('.catalog-intro__gallery-wrapper', {
 	// 	load: {
 	// 		filter: '.track-lights'
-	// 	}
+	// 	},
+	// 	animation: {
+	// 		enable: false
+	// 	},
 	// });
+	var mixer1 = mixitup('#catalog', {
+		load: {
+			filter: '.track-lights'
+		},
+		animation: {
+			// enable: false
+		},
+		controls: {
+			// scope: 'local',
+			
+		},
+	});
+	// var mixer5 = mixitup('.catalog__item-wrapper', {
+	// 	load: {
+	// 		filter: '.track-lights'
+	// 	},
+	// 	animation: {
+	// 		// enable: false
+	// 	},
+		
+	// 	controls: {
+	// 		scope: 'local',
+			
+	// 	},
+	// });
+	
+	
 	// var mixer = mixitup('.delivery__wrapper', {
 	// 	load: {
 	// 		filter: '.individual'
@@ -51,8 +84,8 @@ $(function(){
 	if($(window).width()>= 901) {
 		
 		$(document).ready(function(){
-			let containerEl1 = $('.about__wrapper');
-			let mixer1 = mixitup(containerEl1, {
+			let containerEl2 = $('.about__wrapper');
+			let mixer2 = mixitup(containerEl2, {
 				controls: {
 					scope: 'local',	
 				},
@@ -63,8 +96,8 @@ $(function(){
 					enable: false
 				},		
 			});	
-			let containerEl2 = $('.direction__wrapper');
-			let mixer2 = mixitup(containerEl2, {
+			let containerEl3 = $('.direction__wrapper');
+			let mixer3 = mixitup(containerEl3, {
 				controls: {
 					scope: 'local',
 					
@@ -127,7 +160,7 @@ $(function(){
 
 			$('.budgetary').before($('[data-filter=".budgetary"]'));
 
-			var mixer3 = mixitup('.delivery__content', {
+			var mixer4 = mixitup('.delivery__content', {
 				load: {
 					filter: 'none'
 				},
@@ -137,7 +170,7 @@ $(function(){
 			});
 			
 		} else {
-			var mixer3 = mixitup('.delivery__content', {
+			var mixer4 = mixitup('.delivery__content', {
 				load: {
 					filter: '.individual'
 				},
@@ -170,17 +203,17 @@ $(function(){
 	});
 	
 	if ($(window).width() >= 551) {
-		$('.catalog__nav-title').on('click', function () {
-		$('.catalog__nav').removeClass('catalog__nav--active');
-		$(this).parent().addClass('catalog__nav--active');
+		$('.catalog-intro__nav-title').on('click', function () {
+		$('.catalog-intro__nav').removeClass('catalog-intro__nav--active');
+		$(this).parent().addClass('catalog-intro__nav--active');
 		});
 
-		$('.catalog__nav:nth-child(1)').addClass('catalog__nav--active');
+		$('.catalog-intro__nav:nth-child(1)').addClass('catalog-intro__nav--active');
 
 		$('.services__item:nth-child(1)').addClass('services__item--active');
 
-		$('.catalog__card-title').on('click', function(){
-			$(this).parent('.catalog__card').toggleClass('open')
+		$('.catalog-intro__card-title').on('click', function(){
+			$(this).parent('.catalog-intro__card').toggleClass('open')
 		});
 		$('.services__item').on('click', function () {
 			$('.services__item').removeClass('services__item--active');
@@ -247,4 +280,40 @@ $(function () {
 	$(document).ready(function () {
 		new WOW().init();
 	});
+	
 });
+
+function outputUpdatePower(vol) {
+	let outputPower = document.querySelector('#volumePower');
+	outputPower.value = vol;
+
+}
+function outputUpdateFlow(vol) {
+
+	let outputFlow = document.querySelector('#volumeFlow');
+	outputFlow.value = vol;
+
+}
+function outputUpdateAngle(vol) {
+
+	let outputAngle = document.querySelector('#volumeAngle');
+	outputAngle.value = vol;
+
+}
+function outputUpdatePrice(vol) {
+
+	let outputPrice = document.querySelector('#volumePrice');
+	outputPrice.value = vol;
+
+}
+
+// function outputUpdateFlow(vol) {
+// 	let output = document.querySelector('#volume');
+// 	output.value = vol;
+
+// }
+// function outputUpdateAngle(vol) {
+// 	let output = document.querySelector('#volume');
+// 	output.value = vol;
+
+// }
