@@ -1,12 +1,109 @@
+window.onload = function () {
+	document.addEventListener('click', documentActions);
+	function documentActions(e) {
+		const targetElement = e.target;
+		// if (targetElement.classList.contains('products__more')) {
+			if (targetElement.querySelectorAll('[data-filter=".figure-lights"]')) {
+			getProducts(targetElement);
+			e.preventDefault();
+		}
+	}
+}
+		async function getProducts(button) {
+			if (!button.classList.contains('_hold')) {
+				button.classList.add('_hold');
+				
+				const file = "json/products.json";
+				let response = await fetch(file, {
+					method: 'GET'
+				});
+				if(response.ok) {
+					let result = await response.json();
+					loadProducts(result);
+					button.classList.remove('_hold');
+					button.remove;
+				} 
+				else {
+					alert('Oшибка');
+				}
+			};
+			function loadProducts(data){
+				const productsItems = document.querySelector('.product__items');
+				data.products.forEach(item => {
+					const productId = item.id;
+					const productUrl = item.url;
+					const productLabel = item.label;
+					const productImage = item.image;
+					const productTitle = item.title;
+					const productText = item.text;
+					const productPrice = item.price;
+	
+					let productTemplateStart = `<div data-pid="${productId}" class="product__item">`;
+					let productTemplateEnd = `</div>`;
+		
+					let productTemplateImage = `
+						<a href="${productUrl}" class="product__link">
+							<img class="product__link-img" src="images/catalog/${productImage}" alt="${productTitle}">
+						</a>
+					`;
+					let productTemplateLabel = `
+					<span class="product__label">${productLabel}</span>
+				`;
+					let productTemplateBodyStart = `<div class="product__content">`;
+					let productTemplateBodyEnd = `</div>`;
+		
+					let productTemplatePrice = `<div class="product__price">${productPrice} &#8381;</div>`;
+
+					let productTemplateContent =
+					`<h6 class="product__title">${productTitle}</h6>`
+						let productTemplateText = '';
+					if (productText){
+						let productTemplateTextStart = `<ul class="product__list">`;
+						let productTemplateTextEnd = `</ul>`;
+						let productTemplateTextContent = '';
+					
+						productText.forEach(TextItem => {
+							productTemplateTextContent += `<li class="product__list-item">${TextItem.value}</li>`;
+						});
+		
+						productTemplateText += productTemplateTextStart;
+						productTemplateText += productTemplateTextContent;
+						productTemplateText += productTemplateTextEnd;
+					}
+				
+						productTemplatePrice;
+						
+					let productTemplateButton = `<a class="btn-dark product__content-btn __icon-plus"
+					href="#">Подробнее</a>`
+		
+					let productTemplateBody = '';
+					productTemplateBody += productTemplateBodyStart;
+					productTemplateBody += productTemplateContent;
+					productTemplateBody += productTemplateText;
+					productTemplateBody += productTemplatePrice;
+					productTemplateBody += productTemplateBodyEnd;
+
+					let productTemplate = '';
+					productTemplate += productTemplateStart;
+					productTemplate += productTemplateLabel; 
+					productTemplate += productTemplateImage;
+					productTemplate += productTemplateBody;
+					productTemplate += productTemplateButton;
+					productTemplate += productTemplateEnd;
+
+					productsItems.insertAdjacentHTML('beforeend', productTemplate);
+			})
+			
+			} 
+		}
 $(function(){
 		
-	
-	
 $(document).ready(function () {
 			let $preloader = $('.preloader'),
 			$loader = $preloader.find('.preloader__loader');
 			$loader.fadeOut();
 			$preloader.delay(250).fadeOut(200);
+			$('body').addClass('fuck')
 	});
 	
 	// var mixer1 = mixitup('.catalog-intro__gallery-wrapper', {
@@ -117,6 +214,8 @@ $(function(){
 			});
 			
 		});
+		$('.filter__title').addClass('__icon-filter');
+		
 		
 	} else {
 		
@@ -148,6 +247,13 @@ $(function(){
 			$('[data-filter=".interior"]').prependTo('.interior');
 
 			
+		});
+		$('.filter__title').addClass('__icon-arrow');
+		$('.filter__title').click(function(){
+			// $('.filter__box').toggleClass('open');
+			$('.filter__wrapper').toggleClass('open');
+			// $('.filter__buttons').toggleClass('open');
+
 		});
 	}
 });
@@ -235,11 +341,17 @@ $(function(){
 	let menu = $('.menu__list');
 	let menuBtn = $('.menu__btn');
 	let menuLink = $('.menu__list-link');
+	let menuContacts = $('.menu-contacts-wrapper');
+	let contacts = $('.header-contacts');
 	// let header = $('.header');
+$(menuContacts).hide();
 
 	$(menuBtn).on('click', function () {
 		$(menu).toggleClass('open');
 		$(this).toggleClass('open');
+		$(menuContacts).show();
+		$(contacts).hide()
+		$(menuBtn).children().toggleClass('__icon-plus')
 		// $(header).toggleClass('gradient');
 	});
 	$(menuLink).on('click', function(){
@@ -265,7 +377,7 @@ $(function(){
 			// $(header).removeClass('gradient');
         }
     });
-})
+});
 
 // $('.catalog__card-title').on('click', function(){
 // 	$(this).parent('.catalog__card').toggleClass('open')
@@ -279,41 +391,109 @@ $(function(){
 $(function () {
 	$(document).ready(function () {
 		new WOW().init();
+
 	});
+// 	var articleDiv = document.querySelector("#outputPower");
+// // клонируем элемент articleDiv
+// var newArticleDiv = articleDiv.cloneNode(true);
+// // newArticleDiv.addEventListener();
+// // добавляем в конец элемента body
+// // let test = document.getElementsByClassName('.catalog__inner')
+// document.body.appendChild(newArticleDiv);
+// console.log(newArticleDiv)
+});
+$(function () {
+	
 	
 });
-
-function outputUpdatePower(vol) {
-	let outputPower = document.querySelector('#volumePower');
-	outputPower.value = vol;
-
+let sliderPower = document.getElementById('sliderPower');
+if (sliderPower) {
+	noUiSlider.create(sliderPower, {
+		start: 44,
+		connect: 'lower',
+		step: 1,
+		range: {
+			'min': 0,
+			'max': 432
+		},
+	});
 }
-function outputUpdateFlow(vol) {
+	let outputPower = document.getElementById('outputPower');
+	sliderPower.noUiSlider.on('update', function(values, handle){
+outputPower.value = Math.round(values[handle])
+	});
 
-	let outputFlow = document.querySelector('#volumeFlow');
-	outputFlow.value = vol;
-
+	let sliderFlow = document.getElementById('sliderFlow');
+	if (sliderFlow) {
+		noUiSlider.create(sliderFlow, {
+			start: 0,
+			connect: 'lower',
+			step: 1,
+			range: {
+				'min': 0,
+				'max': 53820
+			},
+		});
+	
+		let outputFlow = document.getElementById('outputFlow');
+		sliderFlow.noUiSlider.on('update', function(values, handle){
+	outputFlow.value = Math.round(values[handle])
+		});
+	}
+		let sliderAngle = document.getElementById('sliderAngle');
+		if (sliderAngle) {
+			noUiSlider.create(sliderAngle, {
+				start: 0,
+				connect: 'lower',
+				step: 1,
+				range: {
+					'min': 0,
+					'max': 160
+				},
+			});
+		
+			let outputAngle = document.getElementById('outputAngle');
+			sliderAngle.noUiSlider.on('update', function(values, handle){
+		outputAngle.value = Math.round(values[handle])
+			});
+		}
+			let sliderPrice = document.getElementById('sliderPrice');
+		if (sliderPrice) {
+			noUiSlider.create(sliderPrice, {
+				start: 0,
+				connect: 'lower',
+				step: 1,
+				range: {
+					'min': 0,
+					'max': 2500
+				},
+			});
+			let outputPrice = document.getElementById('outputPrice');
+			sliderPrice.noUiSlider.on('update', function(values, handle){
+		outputPrice.value = Math.round(values[handle]);			
+			});		
 }
-function outputUpdateAngle(vol) {
 
-	let outputAngle = document.querySelector('#volumeAngle');
-	outputAngle.value = vol;
+document.getElementById('btnReset').addEventListener('click', function () {
+    // sliderPower.noUiSlider.set(0);
+	// sliderFlow.noUiSlider.set(0);
+	// sliderAngle.noUiSlider.set(0);
+	// sliderPrice.noUiSlider.set(0);
+	sliderPower.noUiSlider.set(0);
+	sliderFlow.noUiSlider.reset();
+	sliderAngle.noUiSlider.reset();
+	sliderPrice.noUiSlider.reset();
+});
+// sliderPrice.noUiSlider.on('change', function(values, handle){
+	
+// 	var articleDiv = document.querySelector("#outputPower");
+// 	// клонируем элемент articleDiv
+// 	var newArticleDiv = articleDiv.cloneNode(true);
+// 	// newArticleDiv.addEventListener();
+// 	// добавляем в конец элемента body
+// 	// let test = document.getElementsByClassName('.catalog__inner')
+// 	document.body.appendChild(newArticleDiv);
+// 	console.log(newArticleDiv);
 
-}
-function outputUpdatePrice(vol) {
-
-	let outputPrice = document.querySelector('#volumePrice');
-	outputPrice.value = vol;
-
-}
-
-// function outputUpdateFlow(vol) {
-// 	let output = document.querySelector('#volume');
-// 	output.value = vol;
-
-// }
-// function outputUpdateAngle(vol) {
-// 	let output = document.querySelector('#volume');
-// 	output.value = vol;
-
-// }
+// 		});	
+			
